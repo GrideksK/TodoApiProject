@@ -5,7 +5,7 @@ using TodoApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<TodoContext>(opt => opt.UseSqlite("Data Source = TodoDto.db"));
+builder.Services.AddDbContext<TodoContext>(opt => opt.UseSqlite("Data Source =Data/TodoDto.db"));
 builder.Services.AddScoped<ITodoService, TodoService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -25,5 +25,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+	var dbContext = scope.ServiceProvider.GetRequiredService<TodoContext>();
+	dbContext.Database.Migrate();
+}
 
 app.Run();
