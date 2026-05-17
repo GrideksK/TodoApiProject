@@ -1,7 +1,7 @@
-[Bb]in/
-[Ob]j/
+bin/
+obj/
+*.db
+*.db-shm
+*.db-wal
 .vs/
 .vscode/
-*.db
-*.db-journal
-*.db-wal
